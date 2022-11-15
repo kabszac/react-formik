@@ -8,25 +8,6 @@ const initialValues = {
     channel: ''
 }
 
-// const validate = (values) => {
-//     const errors = {}
-    
-//     if (!values.name) {
-//         errors.name = "Required"
-//     }
-
-//     if (!values.email){
-//         errors.email = "Required"
-//     } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)){
-//         errors.email = "Wrong format"
-//     }
-
-//     if (!values.channel){
-//         errors.channel = "Required"
-//     }
-
-//     return errors
-// }
 
 const validationSchema = Yup.object({
     name:Yup.string().required('Required!'),
@@ -35,10 +16,9 @@ const validationSchema = Yup.object({
 })
 
 const YoutubeForm = () => {
-    const {values, errors, touched,handleChange, handleBlur,handleSubmit} = useFormik({
+    const {values, errors, touched,handleChange, handleBlur,handleSubmit, getFieldProps} = useFormik({
         initialValues,
         onSubmit: (values) => console.log('form data', values),
-        //validate
         validationSchema
 
     })
@@ -54,9 +34,7 @@ const YoutubeForm = () => {
                         type="text" 
                         id='name' 
                         name='name' 
-                        value={values.name}
-                        onChange={handleChange}
-                        onBlur = {handleBlur}
+                        {... getFieldProps('name')}
                     />
                     {touched.name && errors.name? <div className='error'>{errors.name}</div> : null}
                 </div>
@@ -67,9 +45,7 @@ const YoutubeForm = () => {
                         type="email" 
                         id='email' 
                         name='email'
-                        value={values.email}
-                        onChange={handleChange}
-                        onBlur = {handleBlur}
+                        {... getFieldProps('email')}
                     />
                     {touched.email && errors.email? <div className='error'>{errors.email}</div> : null}
                 </div>
@@ -80,9 +56,7 @@ const YoutubeForm = () => {
                         type="text" 
                         id='channel' 
                         name='channel'
-                        value={values.channel}
-                        onChange={handleChange}
-                        onBlur = {handleBlur}
+                        {... getFieldProps('channel')}
                     />
                     {touched.channel && errors.channel? <div className='error'>{errors.channel}</div> : null}
                 </div>
