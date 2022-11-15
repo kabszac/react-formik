@@ -1,5 +1,6 @@
 import React from 'react';
 import { useFormik } from 'formik';
+import * as Yup from 'yup'
 
 const initialValues = {
     name: '',
@@ -7,31 +8,39 @@ const initialValues = {
     channel: ''
 }
 
-const validate = (values) => {
-    const errors = {}
+// const validate = (values) => {
+//     const errors = {}
     
-    if (!values.name) {
-        errors.name = "Required"
-    }
+//     if (!values.name) {
+//         errors.name = "Required"
+//     }
 
-    if (!values.email){
-        errors.email = "Required"
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)){
-        errors.email = "Wrong format"
-    }
+//     if (!values.email){
+//         errors.email = "Required"
+//     } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)){
+//         errors.email = "Wrong format"
+//     }
 
-    if (!values.channel){
-        errors.channel = "Required"
-    }
+//     if (!values.channel){
+//         errors.channel = "Required"
+//     }
 
-    return errors
-}
+//     return errors
+// }
+
+const validationSchema = Yup.object({
+    name:Yup.string().required('Required!'),
+    email: Yup.string().email('Wrong format').required('Required!'),
+    channel: Yup.string().required('Reqired!')
+})
 
 const YoutubeForm = () => {
     const {values, errors, touched,handleChange, handleBlur,handleSubmit} = useFormik({
         initialValues,
         onSubmit: (values) => console.log('form data', values),
-        validate
+        //validate
+        validationSchema
+
     })
 
     console.log({values})
