@@ -5,7 +5,9 @@ import * as Yup from 'yup'
 const initialValues = {
     name: '',
     email: '',
-    channel: ''
+    channel: '',
+    comments:'',
+    address:''
 }
 
 
@@ -53,6 +55,32 @@ const YoutubeForm = () => {
                         name='channel'
                     />
                     <ErrorMessage name='channel'/>
+                </div>
+
+                <div className="form-control">
+                    <label htmlFor="comments">Comment</label>
+                    <Field 
+                        as='textarea' 
+                        id='comments' 
+                        name='comments'
+                    />
+                </div>
+
+                <div className="form-control">
+                    <label htmlFor="address">Address</label>
+                    <Field name='address'>
+                        {
+                            (props) =>  {
+                                const {field, form, meta} = props
+                                return(
+                                    <div className="">
+                                        <input type="text" name="" id="address" {...field}/>
+                                        {meta.touched && meta.error? <div>{meta.error}</div>: null}
+                                    </div>
+                                )
+                            }
+                        }
+                    </Field>
                 </div>
 
                 <button>Submit</button>
